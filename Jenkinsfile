@@ -1,31 +1,42 @@
 pipeline {
         agent any
-stages {
-        stage('Clean') {
-        
-            steps {
-                echo 'Cleaning..'
-                
-            }
+        tools {
+                //jdk 'jdk8'
+                maven 'maven3'
         }
-        stage('Test') {
-        
-            steps {
-                echo 'Testing..'
-                sh 'mvn clean test'
-                
+        stages {
+            stage('test maven installation') {
+                steps {
+                    sh 'mvn -version'
+                    sh 'which mvn'
+                }
             }
-        }
-        
-        stage('Package') {
-        
-            steps {
-                echo 'Packaging..'
-                sh 'mvn clean package'
-                
+
+            stage('Clean') {
+
+                steps {
+                    echo 'Cleaning..'
+                }
             }
+
+            stage('Test') {
+
+                steps {
+                    echo 'Testing..'
+                    sh 'mvn clean test'
+
+                }
+            }
+
+            stage('Package') {
+
+                steps {
+                    echo 'Packaging..'
+                    sh 'mvn clean package'
+
+                }
+            }
+
         }
-       
-    }
 
 }
